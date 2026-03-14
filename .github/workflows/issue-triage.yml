@@ -41,7 +41,7 @@ jobs:
             Analyze this issue and determine the appropriate label.
 
             Available labels:
-            ${{ steps.get_labels.outputs.labels }}
+            ${{ steps.get_labels.outputs.result }}
 
             Issue #${{ github.event.issue.number }}: ${{ github.event.issue.title }}
 
