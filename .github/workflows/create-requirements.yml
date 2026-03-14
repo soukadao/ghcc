@@ -8,6 +8,7 @@ jobs:
     if: github.event.label.name == 'doc:requirements'
     permissions:
       contents: read
+      issues: write
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v6
