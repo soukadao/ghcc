@@ -37,6 +37,16 @@ jobs:
         id: claude
         uses: anthropics/claude-code-action@v1.0.70
         with:
-          prompt_file: ".claude/prompts/issue-triage.txt"
+          prompt: |
+            Analyze this issue and determine the appropriate label.
+
+            Available labels:
+            ${{ steps.get_labels.outputs.result }}
+
+            Issue #${{ github.event.issue.number }}: ${{ github.event.issue.title }}
+
+            ${{ github.event.issue.body }}
+
+            update issue command: gh issue edit ${{ github.event.issue.number }} --add-label "$LABEL"
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           claude_args: "--allowedTools 'Bash(gh issue edit:*)'"
