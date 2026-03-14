@@ -10,7 +10,7 @@ jobs:
       contents: read
       id-token: write
     steps:
-      - name: Checkout code
+      - name: Checkout Repository
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
@@ -37,16 +37,6 @@ jobs:
         id: claude
         uses: anthropics/claude-code-action@v1.0.70
         with:
-          prompt: |
-            Analyze this issue and determine the appropriate label.
-
-            Available labels:
-            ${{ steps.get_labels.outputs.result }}
-
-            Issue #${{ github.event.issue.number }}: ${{ github.event.issue.title }}
-
-            update issue command: gh issue edit ${{ github.event.issue.number }} --add-label "$LABEL"
-
-            ${{ github.event.issue.body }}
+          prompt_file: ".claude/prompts/issue-triage.txt"
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           claude_args: "--allowedTools 'Bash(gh issue edit:*)'"
